@@ -9,7 +9,7 @@ $.getJSON("getQuestions.php",function (data) {
     for(x in data)
     {
         document.getElementById("questions").innerHTML+=
-        '<div class="form-group col-6"> <label> '+data[x]+' </label> <input type="text" class="form-control" placeholder="Answer" required/> </div> '
+        '<div class="form-group col-6"> <label> '+data[x]["question"]+' </label> <input name="answer-'+data[x]["id"]+'" type="text" class="form-control" placeholder="Answer" required/> </div> '
     }
     
 });

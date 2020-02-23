@@ -13,33 +13,49 @@
                 <div class="row">
                     <div class="form-group col-6">
                         <label> Username </label>
-                        <input type="text" class="form-control" placeholder="Username" required/>
+                        <input name="username" type="text" class="form-control" placeholder="Username" required/>
                     </div>
                     <div class="form-group col-6">
                         <label> Email </label>
-                        <input type="email" class="form-control" placeholder="Email" required />
+                        <input name="email" type="email" class="form-control" placeholder="Email" required />
                     </div>
+                </div>
+
+                <div class="row">
+                        <div class="form-group col-6">
+                            <label> Password </label>
+                            <input name="password" id="password" type="password" class="form-control" placeholder="Password" required/>
+                        </div>
+                        <div class="form-group col-6">
+                            <label> Repeat Password </label>
+                            <input name="repeat-password" id="repeat-password" type="password" class="form-control" placeholder="Repeat Password" required />
+                        </div>
+                    <p id="password-notice"> </p>
                 </div>
 
                 <div class="row">
                     <div class="form-group col-6">
                         <label> First Name </label>
-                        <input type="text" class="form-control" placeholder="First Name" required/>
+                        <input name="first-name" type="text" class="form-control" placeholder="First Name" required/>
                     </div>
                     <div class="form-group col-6">
                         <label> Last Name </label>
-                        <input type="text" class="form-control" placeholder="Last Name" required/>
+                        <input name="last-name" type="text" class="form-control" placeholder="Last Name" required/>
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="form-group col-6">
                         <label> Birth Date </label>
-                        <input type="date" class="form-control" placeholder="Birth Date" required />
+                        <input name="birth-date" type="date" class="form-control" placeholder="Birth Date" required />
                     </div>
                 </div>
                 <div class="row" id="questions">
+                    
+                </div>
 
+                <div class="row">
+                        <button type="button" class="btn btn-primary"> Register </button>
                 </div>
             </form>
         </div>

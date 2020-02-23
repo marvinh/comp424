@@ -19,12 +19,6 @@ $stmt->execute([0]);
 
 $results = $stmt->fetchAll();
 
-$data = [];
-foreach($results as $result)
-{
-    $data[] = $result["question"];
-}
-
-echo json_encode($data);
+echo json_encode($results);
 
 ?>
