@@ -8,8 +8,10 @@
         <!-- the content goes here -->
         <div class="container">
             <h1> Registration </h1>
-            <form method="POST" action="register.php">
+            <form id="registrationForm" method="POST">
+                <div id="server-notice"> 
 
+                </div>
                 <div class="row">
                     <div class="form-group col-6">
                         <label> Username </label>
@@ -55,12 +57,11 @@
                 </div>
 
                 <div class="row">
-                        <button type="button" class="btn btn-primary"> Register </button>
+                    <button type="submit" name="submit" class="btn btn-primary"> Register </button>
                 </div>
             </form>
         </div>
     </body>
-
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="register.js"> </script>
 </html>

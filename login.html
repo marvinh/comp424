@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <!-- head definitions go here -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    </head>
+    <body>
+        <!-- the content goes here -->
+        <div class="container">
+            <h1> Registration </h1>
+            <form id="loginForm" method="POST">
+                <div id="server-notice">  
+                </div>
+                <div class="row">
+                    <div class="form-group col-6">
+                        <label> Username </label>
+                        <input name="username" type="text" class="form-control" placeholder="Username" required/>
+                    </div>
+                    <div class="form-group col-6">
+                            <label> Password </label>
+                            <input name="password" id="password" type="password" class="form-control" placeholder="Password" required/>
+                    </div>
+                </div>
+                <div class="row">
+                    <button type="submit" name="submit" class="btn btn-primary"> Login </button>
+                </div>
+            </form>
+        </div>
+    </body>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="register.js"> </script>
+</html>
