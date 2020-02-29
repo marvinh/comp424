@@ -1,10 +1,9 @@
 <?php
-
 class PDOConnection
 {
     public $connection;
     static $_instance;
-
+    
     private function __construct() {
         
         $this->connection = new PDO('mysql:host='. DB_HOST .';dbname='.DB_NAME,DB_USER, DB_PASS);
@@ -21,3 +20,4 @@ class PDOConnection
     }
 
 }
+?>

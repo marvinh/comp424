@@ -1,4 +1,9 @@
 <?php
+
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 include_once('dbconfig.php');
 include_once('PDOConnection.php');
 
@@ -8,6 +13,8 @@ require_once 'config/LoginRegistration.php';
 require_once 'libraries/PHPMailer.php';
 require_once 'libraries/class.smtp.php';
 
+
+
 $username = $_POST['username'];
 $email = $_POST['email'];
 $password = $_POST['password'];
@@ -16,9 +23,9 @@ $firstName = $_POST['first-name'];
 $lastName = $_POST['last-name'];
 $birthDate = $_POST['birth-date'];
 
-$answer0 = $_POST['answer-0'];
-$answer1 = $_POST['answer-1'];
-$answer2 = $_POST['answer-2'];
+$answerOne = password_hash($_POST['answer-0'], PASSWORD_BCRYPT);
+$answerTwo = password_hash($_POST['answer-1'], PASSWORD_BCRYPT);
+$answerThree = password_hash($_POST['answer-2'], PASSWORD_BCRYPT);
 
 if($password!=$repeat)
 {
@@ -58,13 +65,40 @@ $stmt->bindParam(":first_name", $firstName, PDO::PARAM_STR);
 $stmt->bindParam(":last_name", $lastName, PDO::PARAM_STR);
 $stmt->bindParam(":birth_date", $birthDate, PDO::PARAM_STR);
 $stmt->bindParam(":token", $token, PDO::PARAM_STR);
+
 if($stmt->execute())
 {
+    //Get ID 
+    $stmt = $db->prepare("SELECT * FROM users WHERE username = :username");
+    $stmt->bindParam(":username", $username, PDO::PARAM_STR);
+    $stmt->execute();
+    $result = $stmt->fetch();
+    $userId = $result['id'];
+
+    //insert questions
+
+    $stmt = $db->prepare("INSERT INTO user_question_answer (user, question_id, answer) values (:user, 1 , :answer)");
+    $stmt->bindParam(":user", $userId);
+    $stmt->bindParam(":answer", $answerOne, PDO::PARAM_STR);
+    $stmt->execute();
+    $stmt = $db->prepare("INSERT INTO user_question_answer (user, question_id, answer) values (:user, 2, :answer)");
+    $stmt->bindParam(":user", $userId);
+    $stmt->bindParam(":answer", $answerTwo, PDO::PARAM_STR);
+    $stmt->execute();
+    $stmt = $db->prepare("INSERT INTO user_question_answer (user, question_id, answer) values (:user, 3 , :answer)");
+    $stmt->bindParam(":user", $userId);
+    $stmt->bindParam(":answer", $answerThree, PDO::PARAM_STR);
+    $stmt->execute();
+
+    //insert login attempts
+    $stmt = $db->prepare("INSERT INTO login_log (user) values (".$userId.")");
+    $stmt->execute();
 
     // send email
     sendVerificationEmail($email,$token);
     echo "Verification email has been sent.";
 }
+
 
 function sendVerificationEmail($email,$token)
 {
@@ -123,11 +157,9 @@ function sendVerificationEmail($email,$token)
     {
       return true;
     }
-}
+} 
+?>
 
-
-
-//Add Question Answers
 
 
 

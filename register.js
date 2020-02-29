@@ -16,39 +16,23 @@ $.getJSON("getQuestions.php",function (data) {
 
 
 // Registration Form
-$(document).ready(function(){
-    let $registrationForm = $('#registrationForm');
-    
-    if ($registrationForm.length == 0 ) return; // cancel process not the registration page
-
-    $registrationForm.on('submit', function(e){
+$("form").on('submit', function(e){
         e.preventDefault();
-        let data = 'username='+$(this).find('input[name="username"]').val()+
-                   'email='+$(this).find('input[name="email"]').val()+
-                   'password='+$(this).find('input[name="password"]').val()+
-                   'repeat-password='+$(this).find('input[name="repeat-password"]').val()+
-                   'first-name='+$(this).find('input[name="first-name"]').val()+
-                   'last-name='+$(this).find('input[name="last-name"]').val()+
-                   'birth-date='+$(this).find('input[name="birth-date"]').val()+
-                   'answer-0='+$(this).find('input[name="answer-0"]').val()+
-                   'answer-1='+$(this).find('input[name="answer-1"]').val()+
-                   'answer-2='+$(this).find('input[name="answer-2"]').val();
-        // attempt to insert user
+        var formData = $("#registerForm").serialize();
+        console.log(formData);
         $.ajax({
             type: "POST",
             url: "register.php",
-            data: data,
+            data: formData,
             success: function(response) {
-                document.getElementById("server-notice").innerHTML = '<p>' + response + '</p>'
+                //console.log(response);
+                document.getElementById("server-notice").innerHTML = "<p>"+ response +"</p>";
             },
             failure: function(error) {
                 console.log(error);
             }
-            // dataType: 
-          });
+            
+        });
 
-
-
-    })
 
 });

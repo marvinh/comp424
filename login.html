@@ -3,30 +3,36 @@
     <head>
         <!-- head definitions go here -->
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+        
     </head>
     <body>
         <!-- the content goes here -->
         <div class="container">
-            <h1> Registration </h1>
-            <form id="loginForm" method="POST">
+            <h1> Login </h1>
+            <form #loginForm id="loginForm" method="POST">
                 <div id="server-notice">  
                 </div>
                 <div class="row">
-                    <div class="form-group col-6">
+                    <div class="form-group col-12">
                         <label> Username </label>
                         <input name="username" type="text" class="form-control" placeholder="Username" required/>
                     </div>
-                    <div class="form-group col-6">
-                            <label> Password </label>
-                            <input name="password" id="password" type="password" class="form-control" placeholder="Password" required/>
+                    <div class="form-group col-12">
+                        <label> Password </label>
+                        <input name="password" id="password" type="password" class="form-control" placeholder="Password" required/>
+                    </div>
+                    <a class="col-12" href="register.html">  Register </a>
+                    <a class="col-6" href="forgot-username.html">  Forgot username </a>
+                    <a class="col-6" href="forgot-password.html">  Forgot password </a>
+                    <div class="form-group col-12">
+                        <button type="submit" name="submit" class="btn btn-primary"> Login </button>
                     </div>
                 </div>
-                <div class="row">
-                    <button type="submit" name="submit" class="btn btn-primary"> Login </button>
-                </div>
+                <div class="g-recaptcha" data-sitekey="6LcdYd0UAAAAAL_IeBBrM5vYQcMG6CZ7pyun9MZF"></div>
             </form>
         </div>
     </body>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script src="register.js"> </script>
+    <script src="login.js"> </script>
 </html>
