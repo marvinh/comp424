@@ -1,4 +1,5 @@
 <?php
+include_once("source/env.php");
 //($_SERVER['SERVER_ADDR'] == '::1' ? 'localhost' : $_SERVER['SERVER_ADDR']) .':'.$_SERVER['SERVER_PORT']
 $host = isset($_SERVER['SERVER_NAME']) ? $_SERVER['SERVER_ADDR'] : 'localhost' ;//$_SERVER['SERVER_ADDR'] == '::1' ? 'localhost' : $_SERVER['SERVER_ADDR'];
 $domain = ($_SERVER['HTTP_HOST'] != 'localhost') ? $_SERVER['HTTP_HOST'] : false;
@@ -8,8 +9,8 @@ define("COOKIE_SECRET_KEY", "1gp@TMPS{+$78sfpMJFe-92s");
 define("EMAIL_USE_SMTP", true);
 define("EMAIL_SMTP_HOST", "smtp.gmail.com");
 define("EMAIL_SMTP_AUTH", true);
-define("EMAIL_SMTP_USERNAME", "comp424Group@gmail.com");
-define("EMAIL_SMTP_PASSWORD", "comp424!@");
+define("EMAIL_SMTP_USERNAME", EMAIL);
+define("EMAIL_SMTP_PASSWORD", PASS);
 define("EMAIL_SMTP_PORT", 587);
 define("EMAIL_SMTP_ENCRYPTION", "tls");
 

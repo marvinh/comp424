@@ -3,9 +3,9 @@ session_start();
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
-include_once("env.php");
-include_once('dbconfig.php');
-include_once('PDOConnection.php');
+include_once("source/env.php");
+include_once('source/dbconfig.php');
+include_once('source/PDOConnection.php');
 
 if(!isset($_POST["g-recaptcha-response"]))
 {
@@ -17,7 +17,7 @@ $captcha = $_POST["g-recaptcha-response"];
 
 if($captcha=="")
 {
-    echo "Verify with reCaptcha!";
+    echo "Invlaid!";
     die();
 }
 
@@ -53,9 +53,9 @@ if($results)
         $stmt->bindParam("user", $user_id);
         $stmt->execute();
 
-        echo "Wrong credentials";
+        echo "Invlaid!";
     }
 }else{
     $_SESSION['loggedin'] = false;
-    echo "Account does not exist or is not verified";
+    echo "Invlaid!";
 }

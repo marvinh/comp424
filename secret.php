@@ -3,13 +3,29 @@ session_start();
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
-include_once('dbconfig.php');
-include_once('PDOConnection.php');
+include_once('source/dbconfig.php');
+include_once('source/PDOConnection.php');
 
 if (!isset( $_SESSION['user_id'] ) ) {
     // Grab user data from the database using the user_id
     header("Location: login.html");
 } else {
+
+    function downloadCompanyFile() {
+        $file = "secret/company_confidential_file.txt";
+        $exists = file_exists($file) ? "true": "false";
+        if (file_exists($file)) {
+            header('Content-Description: File Transfer');
+            header('Content-Type: application/octet-stream');
+            header('Content-Disposition: attachment; filename="'.basename($file).'"');
+            header('Expires: 0');
+            header('Cache-Control: must-revalidate');
+            header('Pragma: public');
+            header('Content-Length: ' . filesize($file));
+            readfile($file);
+            exit;
+        }
+    }
 
     $db = PDOConnection::getInstance()->connection;
     $stmt = $db->prepare("SELECT * FROM users WHERE id = :id");
@@ -21,8 +37,21 @@ if (!isset( $_SESSION['user_id'] ) ) {
     $stmt->bindParam(":user",$_SESSION['user_id']);
     $stmt->execute();
     $logins = $stmt->fetch();
+
+    if(isset($_GET['download']) && $_GET['download']==true)
+    {
+        downloadCompanyFile();
+    }
+
+
 }
 
+?>
+
+<?php
+    
+
+    
 ?>
 
 <!doctype html>
@@ -44,7 +73,8 @@ if (!isset( $_SESSION['user_id'] ) ) {
         <p> Total Login Attempts: <?php echo $logins['attempts']; ?> </p>
         <p> Total Successful Logins: <?php echo $logins['success']; ?> </p>
         <p> Total Failed Logins: <?php echo $logins['fail']; ?> </p>
-        <embed src="secret/company_confidential_file.txt"> </embed>
+        <p> <a href="secret.php?download=true"> Download Company Confidential File </a> </p>
+        <!-- <embed src="secret/company_confidential_file.txt"> </embed> -->
     </div>
 
 
