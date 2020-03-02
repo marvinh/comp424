@@ -8,7 +8,6 @@ include_once('source/dbconfig.php');
 include_once('source/PDOConnection.php');
 
 require_once 'config/PHPMailer.php';
-require_once 'config/LoginRegistration.php';
 
 require_once 'libraries/PHPMailer.php';
 require_once 'libraries/class.smtp.php';
