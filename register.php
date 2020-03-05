@@ -31,6 +31,10 @@ if($password!=$repeat)
     echo "Password mismatch.";
     return;
 }
+if(strlen($password) < 6){
+	echo "Password Too short.";
+	return;
+}
 
 ///password_verify ( string $password , string $hash ) : bool
 $bcryptPassword = password_hash($password, PASSWORD_BCRYPT);
@@ -49,8 +53,6 @@ if(sizeof($result) > 0) {
     echo "Username or email already registered.";
     return;
 }
-
-
 
 $token = md5($email.$username);
 

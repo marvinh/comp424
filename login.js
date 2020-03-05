@@ -2,7 +2,7 @@
 $('#loginForm').on('submit', function(e){
         e.preventDefault();
         var formData = $("#loginForm").serialize();
-
+		
         $.ajax({
                 type: "POST",
                 url: "login.php",

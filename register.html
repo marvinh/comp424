@@ -25,12 +25,12 @@
 
                 <div class="row">
                         <div class="form-group col-6">
-                            <label> Password </label>
-                            <input name="password" id="password" type="password" class="form-control" placeholder="Password" required/>
+                            <label> Password (At least 6 characters) </label>
+                            <input name="password" id="password" type="password" class="form-control" placeholder="Password" required minlength="6"/>
                         </div>
                         <div class="form-group col-6">
                             <label> Repeat Password </label>
-                            <input name="repeat-password" id="repeat-password" type="password" class="form-control" placeholder="Repeat Password" required />
+                            <input name="repeat-password" id="repeat-password" type="password" class="form-control" placeholder="Repeat Password" required minlength="6" />
                         </div>
                     <p id="password-notice"> </p>
                 </div>
