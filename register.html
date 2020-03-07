@@ -3,6 +3,11 @@
     <head>
         <!-- head definitions go here -->
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <script src="register.js"> </script>
+
     </head>
     <body>
         <!-- the content goes here -->
@@ -21,21 +26,19 @@
                         <label> Email </label>
                         <input name="email" type="email" class="form-control" placeholder="Email" required />
                     </div>
-                </div>
-
-                <div class="row">
-                        <div class="form-group col-6">
-                            <label> Password </label>
-                            <input name="password" id="password" type="password" class="form-control" placeholder="Password" required/>
-                        </div>
-                        <div class="form-group col-6">
-                            <label> Repeat Password </label>
-                            <input name="repeat-password" id="repeat-password" type="password" class="form-control" placeholder="Repeat Password" required />
-                        </div>
-                    <p id="password-notice"> </p>
-                </div>
-
-                <div class="row">
+                
+                    <div class="form-group col-6">
+                        <label> Password </label>
+                        <input onkeyup="analyze()" name="password" id="password" type="password" class="form-control" placeholder="Password" required/>
+                        <p id="password-notice"> </p>
+                    </div>
+                    
+                    <div class="form-group col-6">
+                        <label> Repeat Password </label>
+                        <input onkeyup="confirmRepeat()" name="repeat-password" id="repeat-password" type="password" class="form-control" placeholder="Repeat Password" required />
+                        <p id="repeat-notice"> </p>
+                    </div>
+                
                     <div class="form-group col-6">
                         <label> First Name </label>
                         <input name="first-name" type="text" class="form-control" placeholder="First Name" required/>
@@ -44,26 +47,35 @@
                         <label> Last Name </label>
                         <input name="last-name" type="text" class="form-control" placeholder="Last Name" required/>
                     </div>
-                </div>
+                
 
-                <div class="row">
-                    <div class="form-group col-6">
+                
+                    <div class="form-group col-12">
                         <label> Birth Date </label>
                         <input name="birth-date" type="date" class="form-control" placeholder="Birth Date" required />
                     </div>
-                </div>
-                <div class="row" id="questions">
                     
-                </div>
+                    <h3 class="col-6"> <strong> Security Questions </strong> </h3>
+                    <div class="form-group col-6">
+                            <label> What was the name of your first pet? </label>
+                            <input name="answer-0" type="text" class="form-control" placeholder="Answer" required />
+                    </div>
+                    <div class="form-group col-6">
+                            <label> What model was your first car?  </label>
+                            <input name="answer-1" type="text" class="form-control" placeholder="Answer" required />
+                    </div>
+                    <div class="form-group col-6">
+                            <label> What is your favorite place to eat? </label>
+                            <input name="answer-2" type="text" class="form-control" placeholder="Answer" required />
+                    </div>
 
-                <div class="row">
-                    <button type="submit" name="submit" class="btn btn-primary"> Register </button>
-                </div>
+                    <div class="col-6 g-recaptcha" data-sitekey="6LcdYd0UAAAAAL_IeBBrM5vYQcMG6CZ7pyun9MZF"></div>
+                    <button type="submit" name="submit" class="col-6 mt-3 btn-lg btn-primary"> Register </button>
+                </div>    
             </form>
         </div>
     </body>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script src="register.js"> </script>
+   
 </html>
 
 
