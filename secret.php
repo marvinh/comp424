@@ -67,6 +67,23 @@ if (!isset( $_SESSION['user_id'] ) ) {
     <title>Seceret Page</title>
   </head>
   <body>
+
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand" href="#">COMP 424 </a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="logout.php">Logout</a>
+      </li>
+
+    </ul>
+  </div>
+</nav>
+
     <div class="container">
         <h1> Seceret Page </h1>
         <p> Welcome <?php echo $user['first_name']." ".$user["last_name"]; ?> </p>

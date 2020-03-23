@@ -13,6 +13,7 @@ $('#loginForm').on('submit', function(e){
                     {
                         window.location = "secret.php";
                     }else{
+                        grecaptcha.reset();
                         document.getElementById("server-notice").innerHTML = "<p>"+ response +"</p>";
                     }
                 },

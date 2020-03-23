@@ -15,14 +15,48 @@ if(!isset($_POST["g-recaptcha-response"]))
 
 $captcha = $_POST["g-recaptcha-response"];
 
+//Verify Captcha 
 if($captcha=="")
 {
     echo "Invalid!";
     die();
+}else{
+    
+    $secretKey = GOOGLE_RECAPTCHA_SECRET;
+    $ip = $_SERVER['REMOTE_ADDR'];
+    // post request to server
+    $url = 'https://www.google.com/recaptcha/api/siteverify?secret=' . urlencode($secretKey) .  '&response=' . urlencode($captcha);
+    $response = file_get_contents($url);
+    $responseKeys = json_decode($response,true);
+    // should return JSON with success as true
+    if($responseKeys["success"]) {
+        
+        //success
+
+    } else {
+        echo 'invalid';
+        die();
+    }
+
 }
+
+
 
 $username = $_POST['username'];
 $password = $_POST['password'];
+
+//Buffer Overflow
+if(strlen($username) > 200)
+{
+    echo "invalid";
+    die();
+}
+
+if(strlen($password) > 200)
+{
+    echo "invalid";
+    die();
+}
 
 $db = PDOConnection::getInstance()->connection;
 //$stmt = $db->prepare("SELECT * FROM users WHERE username = :username AND verified=1");
@@ -46,16 +80,18 @@ if($results)
         $stmt = $db->prepare("UPDATE login_log SET success = success + 1 WHERE user = :user");
         $stmt->bindParam("user", $user_id);
         $stmt->execute();
-        
+
         echo "success";
     }else{
+
+
         $_SESSION['loggedin'] = false;
 
         $stmt = $db->prepare("UPDATE login_log SET fail = fail + 1 WHERE user = :user");
         $stmt->bindParam("user", $user_id);
         $stmt->execute();
 
-        echo "Invlaid!";
+        echo "invalid";
     }
 }else{
     $_SESSION['loggedin'] = false;

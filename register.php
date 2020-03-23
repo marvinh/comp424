@@ -6,13 +6,40 @@ error_reporting(E_ALL);
 
 include_once('source/dbconfig.php');
 include_once('source/PDOConnection.php');
-
 require_once 'config/PHPMailer.php';
-
 require_once 'libraries/PHPMailer.php';
 require_once 'libraries/class.smtp.php';
 
+if(!isset($_POST["g-recaptcha-response"]) || $_POST["g-recaptcha-response"] == "")
+{
+    echo "Invalid!";
+    die();
+}
+$captcha = $_POST["g-recaptcha-response"];
+//Verify reCaptcha Server side;
+if($captcha=="")
+{
+    echo "invalid";
+    die();
+}else{
+    
+    $secretKey = GOOGLE_RECAPTCHA_SECRET;
+    $ip = $_SERVER['REMOTE_ADDR'];
+    // post request to server
+    $url = 'https://www.google.com/recaptcha/api/siteverify?secret=' . urlencode($secretKey) .  '&response=' . urlencode($captcha);
+    $response = file_get_contents($url);
+    $responseKeys = json_decode($response,true);
+    // should return JSON with success as true
+    if($responseKeys["success"]) {
+        
+        //success
 
+    } else {
+        echo 'invalid';
+        die();
+    }
+
+}
 
 $username = $_POST['username'];
 $email = $_POST['email'];
@@ -26,6 +53,8 @@ $answerOne = password_hash($_POST['answer-0'], PASSWORD_BCRYPT);
 $answerTwo = password_hash($_POST['answer-1'], PASSWORD_BCRYPT);
 $answerThree = password_hash($_POST['answer-2'], PASSWORD_BCRYPT);
 
+
+
 if($password!=$repeat)
 {
     echo "Password mismatch.";
@@ -35,6 +64,7 @@ if(strlen($password) < 6){
 	echo "Password Too short.";
 	return;
 }
+
 
 ///password_verify ( string $password , string $hash ) : bool
 $bcryptPassword = password_hash($password, PASSWORD_BCRYPT);
