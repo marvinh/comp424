@@ -18,7 +18,7 @@ $captcha = $_POST["g-recaptcha-response"];
 //Verify Captcha 
 if($captcha=="")
 {
-    echo "invalid";
+    echo "Invalid!";
     die();
 }else{
     
@@ -59,7 +59,9 @@ if(strlen($password) > 200)
 }
 
 $db = PDOConnection::getInstance()->connection;
-$stmt = $db->prepare("SELECT * FROM users WHERE username = :username AND verified=1");
+//$stmt = $db->prepare("SELECT * FROM users WHERE username = :username AND verified=1");
+$q = "SELECT * FROM users WHERE username = :username AND verified=1";
+$stmt = $db->prepare($q);
 $stmt->bindParam(":username", $username, PDO::PARAM_STR);
 $stmt->execute();
 $results = $stmt->fetch();
@@ -93,5 +95,5 @@ if($results)
     }
 }else{
     $_SESSION['loggedin'] = false;
-    echo "invalid";
+    echo "Invalid!";
 }
