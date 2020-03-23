@@ -7,7 +7,7 @@
 #
 # Host: 127.0.0.1 (MySQL 5.7.26)
 # Database: comp424db
-# Generation Time: 2020-03-02 01:20:37 +0000
+# Generation Time: 2020-03-05 02:19:41 +0000
 # ************************************************************
 
 
@@ -39,7 +39,11 @@ LOCK TABLES `login_log` WRITE;
 
 INSERT INTO `login_log` (`id`, `user`, `attempts`, `success`, `fail`)
 VALUES
-	(4,21,19,9,10);
+	(4,21,19,9,10),
+	(5,22,0,0,0),
+	(6,23,0,0,0),
+	(7,24,0,0,0),
+	(8,25,0,0,0);
 
 /*!40000 ALTER TABLE `login_log` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -89,7 +93,19 @@ INSERT INTO `user_question_answer` (`id`, `user`, `question_id`, `answer`)
 VALUES
 	(14,21,1,'$2y$10$qwld7Po3MjLSANHWjqBKDukqlYR0DhnCHiMvbeg0yTpXNjsaQ5Xoq'),
 	(15,21,2,'$2y$10$bz0iLBS9ZtGC1RKLjyzF7OUWKNL6qxkdAqpuEh65NqzuTy9LMU4di'),
-	(16,21,3,'$2y$10$16gt0wCELbxSb5cvFbfGO.AY.0e7gLNGx8CujU.lAdKslE4a6xj9K');
+	(16,21,3,'$2y$10$16gt0wCELbxSb5cvFbfGO.AY.0e7gLNGx8CujU.lAdKslE4a6xj9K'),
+	(17,22,1,'$2y$10$5TiyDTfOl2K0MKr7EjHJfOpoukZY.evBIg49YgzP8VA4ryzfmMnD.'),
+	(18,22,2,'$2y$10$hDaW/7tvokIkVjeDvIXnaeUStdvSGiLQ.NgfmBGM1wsvFvkLQqHCG'),
+	(19,22,3,'$2y$10$NKpLYpF/2DYVUeGvWYzQuenFQCYJdceo.jHBzUDKZJxVYeUF.ycUq'),
+	(20,23,1,'$2y$10$iPTnni.qv0MYoAC/aQfM.uSGfjK3JfOFRqdNtxMOEujGGh//u.h8y'),
+	(21,23,2,'$2y$10$fo0XnnlVu9wzQ679C8jVp.72aZDuYJz5zGS7HIvZvZ1U2801f/8wy'),
+	(22,23,3,'$2y$10$K1O/0q6mHwY8tNkxC1tv8.7vzZe/GuIVsLD7ZPNbgBKCJqCE2r3se'),
+	(23,24,1,'$2y$10$fQnDqZt1KcrxSeSp9b6kYe0vXSFKyQ7pJNlrfBXCxZW/VupL1DVrO'),
+	(24,24,2,'$2y$10$qbEkKwQIRVJ.pQVxCEKIDOJ2KnItToJzU16aRV4isjKsUj9oxnN3O'),
+	(25,24,3,'$2y$10$/2xNV6i4GqSo3CuEPpxlyek2OkdlHeX3nCJanViFi996uTvNMbzxC'),
+	(26,25,1,'$2y$10$z86Jz6PgAEsqCOFeiMgsa.6ONmD3e0Sinj25oukjIznGvyd3UFOQ2'),
+	(27,25,2,'$2y$10$OBNzvpaG3zxYm3uHLy2TBu1gf/qj3pZwQxSu9UOhXjhAvJCi3rwIu'),
+	(28,25,3,'$2y$10$Y6AgHw9PjMp2BoZu9nvxduARr5.zfEC5HviNuj32CV8oezkhceV2K');
 
 /*!40000 ALTER TABLE `user_question_answer` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -120,7 +136,8 @@ LOCK TABLES `users` WRITE;
 
 INSERT INTO `users` (`id`, `first_name`, `last_name`, `username`, `pass`, `email`, `birth_date`, `token`, `verified`)
 VALUES
-	(21,'Marvin','Harootoonyan','marvin','$2y$10$m2ZumMuaXWjNy1I/5JIOXu2W.yZjjEJgd4fqXzyHFssYMUz1NpGPC','MarvinHarootoonyan@gmail.com','1992-01-01','4359c98cc4eefcff06349e505f944f2d',1);
+	(21,'Marvin','Harootoonyan','marvin','$2y$10$m2ZumMuaXWjNy1I/5JIOXu2W.yZjjEJgd4fqXzyHFssYMUz1NpGPC','MarvinHarootoonyan@gmail.com','1992-01-01','4359c98cc4eefcff06349e505f944f2d',1),
+	(25,'Marvin','Harootoonyan','test','$2y$10$mGV8dLMO1mdqv0DaELQekuQP25gKallSippJoYrWZSz2iOahG.Qxa','mharootoonyan@gmail.com','1992-01-01','8b193d91da4d78560e4eb5fbfc46fdf8',0);
 
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
