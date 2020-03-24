@@ -41,37 +41,45 @@ function confirmRepeat()
     {
         notice.innerHTML = "Passwords do not match!";
         notice.setAttribute("style", "color: red;");
-        return false;
     }else{
         notice.innerHTML = "Passwords match!";
         notice.setAttribute("style", "color: green;");
-        return true;
     }
 }
 
 // Registration Form
-$("form").on('submit', function(e){
+$("#registerForm").on('submit', function(e) {
         e.preventDefault();
-        if(!confirmRepeat)
-        {
-            return;
-        }
+
+        //var repeat = confirmRepeat();
+       
         var formData = $("#registerForm").serialize();
-        console.log(formData);
-        $.ajax({
-            type: "POST",
-            url: "register.php",
-            data: formData,
-            success: function(response) {
-                //console.log(response);
-                document.getElementById("server-notice").innerHTML = "<p>"+ response +"</p>";
-                grecaptcha.reset();
-            },
-            failure: function(error) {
-                console.log(error);
-            }
-            
-        });
+
+        var val1 = $("#password").val();
+        var val2 = $("#repeat-password").val();
+        if(val1 != val2) {
+            document.getElementById("server-notice").innerHTML = "<p> passwords do not match </p>";
+        } else {
+
+            $.ajax({
+                type: "POST",
+                url: "register.php",
+                data: formData,
+                success: function(response) {
+                    //console.log(response);
+                    document.getElementById("server-notice").innerHTML = "<p>"+ response +"</p>";
+                    grecaptcha.reset();
+                },
+                failure: function(error) {
+                    console.log(error);
+                    grecaptcha.reset();
+                }
+                
+            });
+
+        }
+        
+        
 
 
 });

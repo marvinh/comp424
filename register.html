@@ -5,12 +5,32 @@
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
         <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-        <script src="register.js"> </script>
+        
 
     </head>
     <body>
         <!-- the content goes here -->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+                <a class="navbar-brand" href="#">COMP 424 </a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                  <span class="navbar-toggler-icon"></span>
+                </button>
+              
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                  <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                      <a class="nav-link" href="index.php"> Home </a>
+                    </li> 
+                    <li class="nav-item">
+                        <a class="nav-link" href="login.html">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="register.html">Register</a>
+                    </li>         
+                  </ul>
+                </div>
+              </nav>
+
         <div class="container">
             <h1> Registration </h1>
             <form #registerForm id="registerForm" method="POST">
@@ -48,7 +68,6 @@
                         <input name="last-name" type="text" class="form-control" placeholder="Last Name" required/>
                     </div>
                 
-
                 
                     <div class="form-group col-12">
                         <label> Birth Date </label>
@@ -71,11 +90,12 @@
 
                     <div class="col-6 g-recaptcha" data-sitekey="6LcdYd0UAAAAAL_IeBBrM5vYQcMG6CZ7pyun9MZF"></div>
                     <button type="submit" name="submit" class="col-6 mt-3 btn-lg btn-primary"> Register </button>
-                </div>    
+                </div>
             </form>
         </div>
     </body>
-   
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="register.js"> </script>
 </html>
 
 

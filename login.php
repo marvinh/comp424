@@ -6,6 +6,7 @@ error_reporting(E_ALL);
 include_once("source/env.php");
 include_once('source/dbconfig.php');
 include_once('source/PDOConnection.php');
+require "input.php";
 
 if(!isset($_POST["g-recaptcha-response"]))
 {
@@ -49,14 +50,17 @@ $password = $_POST['password'];
 if(strlen($username) > 200)
 {
     echo "invalid";
-    die();
+    return;
 }
 
 if(strlen($password) > 200)
 {
     echo "invalid";
-    die();
+    return;
 }
+
+$username = sanitize($username);
+$password = sanitize($password);
 
 $db = PDOConnection::getInstance()->connection;
 $stmt = $db->prepare("SELECT * FROM users WHERE username = :username AND verified=1");

@@ -63,6 +63,8 @@ if($user)
             $message = "Try Again";
         }
 
+    }else{
+        $message = "Try Again";
     }
 
     

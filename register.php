@@ -13,14 +13,14 @@ require_once 'libraries/class.smtp.php';
 if(!isset($_POST["g-recaptcha-response"]) || $_POST["g-recaptcha-response"] == "")
 {
     echo "Invalid!";
-    die();
+     return;
 }
 $captcha = $_POST["g-recaptcha-response"];
 //Verify reCaptcha Server side;
 if($captcha=="")
 {
     echo "invalid";
-    die();
+    return;
 }else{
     
     $secretKey = GOOGLE_RECAPTCHA_SECRET;
@@ -33,10 +33,10 @@ if($captcha=="")
     if($responseKeys["success"]) {
         
         //success
-
+        
     } else {
         echo 'invalid';
-        die();
+        return;
     }
 
 }
@@ -86,7 +86,7 @@ $token = md5($email.$username);
 
 //Create User 
 $stmt = $db->prepare("INSERT INTO users (username, email, pass, first_name, last_name, birth_date, token)
-                                 values (:username, :email, :pass, :first_name, :last_name, :birth_date, :token)");
+                                 values (:username,:email,:pass,:first_name,:last_name,:birth_date,:token)");
 $stmt->bindParam(":username", $username, PDO::PARAM_STR);
 $stmt->bindParam(":email", $email, PDO::PARAM_STR);
 $stmt->bindParam(":pass", $bcryptPassword, PDO::PARAM_STR);
