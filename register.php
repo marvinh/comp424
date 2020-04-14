@@ -82,7 +82,7 @@ if(sizeof($result) > 0) {
 
 
 
-$token = md5($email.$username);
+$token = md5($email.strval(time()));
 
 //Create User 
 $stmt = $db->prepare("INSERT INTO users (username, email, pass, first_name, last_name, birth_date, token)

@@ -28,53 +28,117 @@ $question = $result[rand(0,2)];
 
 $message = "";
 
-if(isset($_POST["username"]) && isset($_POST["answer"]))
-{
-    
+if(isset($_POST["username"]) && isset($_POST["answer"])) {
+    $username =  $_POST["username"];
+    $answer = $_POST["answer"];
+    $question_id = $question["id"];
 
-
-$username =  $_POST["username"];
-$answer = $_POST["answer"];
-$question_id = $question["id"];
-
-$db = PDOConnection::getInstance()->connection;
-$stmt = $db->prepare("SELECT * FROM users WHERE username = :username");
-$stmt->bindParam(":username", $username);
-$stmt->execute();
-$user = $stmt->fetch();
-
-
-if($user)
-{
-    $user_id = $user["id"];
     $db = PDOConnection::getInstance()->connection;
-    $stmt = $db->prepare("SELECT * FROM user_question_answer WHERE user = :user AND question_id = :question_id");
-    $stmt->bindParam(":user", $user_id);
-    $stmt->bindParam(":question_id", $question_id);
-    $stmt->execute(); 
-    $userQuestionAnswer = $stmt->fetch();
-   
-    if($userQuestionAnswer){
+    $stmt = $db->prepare("SELECT * FROM users WHERE username = :username");
+    $stmt->bindParam(":username", $username);
+    $stmt->execute();
+    $user = $stmt->fetch();
 
-        if(password_verify($answer,$userQuestionAnswer["answer"]))
-        {
-            $message =  "Success";
-        }else{
-            $message = "Try Again";
+
+    if($user)
+    {
+        $userId = $user["id"];
+        $db = PDOConnection::getInstance()->connection;
+        $stmt = $db->prepare("SELECT * FROM user_question_answer WHERE user = :user AND question_id = :question_id");
+        $stmt->bindParam(":user", $userId);
+        $stmt->bindParam(":question_id", $question_id);
+        $stmt->execute(); 
+        $userQuestionAnswer = $stmt->fetch();
+   
+        if($userQuestionAnswer) {
+
+            if(password_verify($answer,$userQuestionAnswer["answer"])) {
+            
+                $email = $user['email'];
+                $token = md5($email.strval(time()));
+                $stmt = $db->prepare("INSERT INTO password_reset (user,token,email) values (:user,:token,:email)");
+                $stmt->bindParam(":user", $userId);
+                $stmt->bindParam(":token", $token);
+                $stmt->bindParam(":email", $email);
+                $stmt->execute();
+
+                sendResetEmail($email, $token);
+
+                $message =  "Reset link has been sent to the email associated with this account.";
+
+            } else {
+                $message = "Try Again";
+            }
+
+        } else {
+            $message = "Try Again...";
         }
 
-    }else{
-        $message = "Try Again";
-    }
-
     
 
-}else{
-    $message = "Try Again";
-    //return;
-}
+    } else {
+        $message = "Try Again ";
+    }
 
 }
+
+function sendResetEmail($email,$token)
+{
+
+    $mail = new PHPMailer;
+
+    // please look into the config/config.php for much more info on how to use this!
+    // use SMTP or use mail()
+    if (EMAIL_USE_SMTP) 
+    {
+      // Set mailer to use SMTP
+      $mail->isSMTP();
+      $mail->SMTPOptions = array(
+        'ssl' => array(
+            'verify_peer' => false,
+            'verify_peer_name' => false,
+            'allow_self_signed' => true
+        )
+      );
+      //useful for debugging, shows full SMTP errors
+      //$mail->SMTPDebug = 1; // debugging: 1 = errors and messages, 2 = messages only
+      // Enable SMTP authentication
+      $mail->SMTPAuth = EMAIL_SMTP_AUTH;
+      // Enable encryption, usually SSL/TLS
+      if (defined(EMAIL_SMTP_ENCRYPTION)) 
+      {
+        $mail->SMTPSecure = EMAIL_SMTP_ENCRYPTION;
+      }
+      // Specify host server
+      $mail->Host = EMAIL_SMTP_HOST;
+      $mail->Username = EMAIL_SMTP_USERNAME;
+      $mail->Password = EMAIL_SMTP_PASSWORD;
+      $mail->Port = EMAIL_SMTP_PORT;
+    } 
+    else 
+    {
+      $mail->isMail();
+    }
+
+    $mail->From = EMAIL_PASSWORDRESET_FROM;
+    $mail->FromName = EMAIL_PASSWORDRESET_FROM_NAME;
+    $mail->addAddress($email);
+    $mail->Subject = EMAIL_PASSWORDRESET_SUBJECT;
+
+    $link = EMAIL_PASSWORDRESET_URL.'?email='.$email.'&token='.$token;
+    $mail->Body = EMAIL_PASSWORDRESET_CONTENT.' '.$link;
+
+    if(!$mail->send()) 
+    {
+    
+      $this->errors[] = $mail->ErrorInfo;
+      return false;
+    } 
+    else 
+    {
+      return true;
+    }
+} 
 
 ?>
 

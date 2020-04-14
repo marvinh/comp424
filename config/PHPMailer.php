@@ -14,7 +14,7 @@ define("EMAIL_SMTP_PASSWORD", PASS);
 define("EMAIL_SMTP_PORT", 587);
 define("EMAIL_SMTP_ENCRYPTION", "tls");
 
-define("EMAIL_PASSWORDRESET_URL", "");
+define("EMAIL_PASSWORDRESET_URL", "http://localhost:8888/COMP424/reset.php");
 define("EMAIL_PASSWORDRESET_FROM", "comp424group@gmail.com");
 define("EMAIL_PASSWORDRESET_FROM_NAME", "comp424group");
 define("EMAIL_PASSWORDRESET_SUBJECT", "Password reset for comp424group");
