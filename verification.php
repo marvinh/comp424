@@ -1,5 +1,5 @@
 <?php
-include('source/dbconfig.php');
+include('source/env.php');
 include('source/PDOConnection.php');
 
 if(isset($_GET['token']))
