@@ -20,7 +20,7 @@ define("EMAIL_PASSWORDRESET_FROM_NAME", "comp424group");
 define("EMAIL_PASSWORDRESET_SUBJECT", "Password reset for comp424group");
 define("EMAIL_PASSWORDRESET_CONTENT", "Please click on this link to reset your password:");
 
-define("EMAIL_VERIFICATION_URL", "http://http://18.188.194.49/verification.php");
+define("EMAIL_VERIFICATION_URL", "http://18.188.194.49/verification.php");
 define("EMAIL_VERIFICATION_FROM", "comp424group@gmail.com");
 define("EMAIL_VERIFICATION_FROM_NAME", "comp424group");
 define("EMAIL_VERIFICATION_SUBJECT", "Account activation for comp424group");
