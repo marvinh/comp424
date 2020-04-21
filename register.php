@@ -9,6 +9,7 @@ include_once('source/PDOConnection.php');
 require_once 'config/PHPMailer.php';
 require_once 'libraries/PHPMailer.php';
 require_once 'libraries/class.smtp.php';
+require "input.php";
 
 if(!isset($_POST["g-recaptcha-response"]) || $_POST["g-recaptcha-response"] == "")
 {
@@ -41,18 +42,21 @@ if($captcha=="")
 
 }
 
-$username = $_POST['username'];
-$email = $_POST['email'];
-$password = $_POST['password'];
-$repeat = $_POST['repeat-password'];
-$firstName = $_POST['first-name'];
-$lastName = $_POST['last-name'];
-$birthDate = $_POST['birth-date'];
+$username = sanitize($_POST['username']);
+$email = sanitize($_POST['email']);
+$password = sanitize($_POST['password']);
+$repeat = sanitize($_POST['repeat-password']);
+$firstName = sanitize($_POST['first-name']);
+$lastName = sanitize($_POST['last-name']);
+$birthDate = sanitize($_POST['birth-date']);
 
-$answerOne = password_hash($_POST['answer-0'], PASSWORD_BCRYPT);
-$answerTwo = password_hash($_POST['answer-1'], PASSWORD_BCRYPT);
-$answerThree = password_hash($_POST['answer-2'], PASSWORD_BCRYPT);
+$answerOne = sanitize($_POST['answer-0']);
+$answerTwo = sanitize($_POST['answer-1']);
+$answerThree = sanitize($_POST['answer-2']);
 
+$answerOne = password_hash($answerOne, PASSWORD_BCRYPT);
+$answerTwo = password_hash($answerTwo, PASSWORD_BCRYPT);
+$answerThree = password_hash($answerThree, PASSWORD_BCRYPT);
 
 
 if($password!=$repeat)

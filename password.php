@@ -29,6 +29,29 @@ $question = $result[rand(0,2)];
 $message = "";
 
 if(isset($_POST["username"]) && isset($_POST["answer"])) {
+    if(!isset($_POST["g-recaptcha-response"]))
+    {
+      header("Location: password.php");
+      die();
+    }else{
+      $captcha = $_POST["g-recaptcha-response"];
+      $secretKey = GOOGLE_RECAPTCHA_SECRET;
+      $ip = $_SERVER['REMOTE_ADDR'];
+      // post request to server
+      $url = 'https://www.google.com/recaptcha/api/siteverify?secret=' . urlencode($secretKey) .  '&response=' . urlencode($captcha);
+      $response = file_get_contents($url);
+      $responseKeys = json_decode($response,true);
+    // should return JSON with success as true
+      if($responseKeys["success"]) {
+        
+        //success
+
+      } else {
+        header("Location: password.php");
+        die();
+      }
+    }
+
     $username =  $_POST["username"];
     $answer = $_POST["answer"];
     $question_id = $question["id"];
@@ -73,8 +96,6 @@ if(isset($_POST["username"]) && isset($_POST["answer"])) {
         } else {
             $message = "Try Again...";
         }
-
-    
 
     } else {
         $message = "Try Again ";
@@ -149,6 +170,8 @@ function sendResetEmail($email,$token)
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
@@ -189,6 +212,9 @@ function sendResetEmail($email,$token)
                 <label> <?php echo $question["question"] ?> </label>
                     <input name="answer" type="password" class="form-control" placeholder="Answer" required/>
                 </div>
+                
+                <div class="col-6 g-recaptcha" data-sitekey="6LfGm-kUAAAAALLWZcV3iKWONQP_cAxmcGaJtT3c"></div>
+
                 
                 <div class="form-group col-12">
                     <button type="submit" name="submit" class="btn btn-primary"> Submit </button>

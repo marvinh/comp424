@@ -45,19 +45,6 @@ if($captcha=="")
 $username = $_POST['username'];
 $password = $_POST['password'];
 
-//Buffer Overflow
-if(strlen($username) > 200)
-{
-    echo "invalid";
-    return;
-}
-
-if(strlen($password) > 200)
-{
-    echo "invalid";
-    return;
-}
-
 $username = sanitize($username);
 $password = sanitize($password);
 
