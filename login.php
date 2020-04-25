@@ -58,15 +58,23 @@ if($results)
 {
     $user_id = $results['id'];
     $stmt = $db->prepare("UPDATE login_log SET attempts = attempts + 1 WHERE user = :user");
-    $stmt->bindParam("user", $user_id);
+    $stmt->bindParam(":user", $user_id);
     $stmt->execute();
     if(password_verify($password,$results['pass']))
     {
         $_SESSION['user_id'] = $user_id;
         $_SESSION['loggedin'] = true;
-
+        
         $stmt = $db->prepare("UPDATE login_log SET success = success + 1 WHERE user = :user");
-        $stmt->bindParam("user", $user_id);
+        $stmt->bindParam(":user", $user_id);
+        $stmt->execute();
+
+        $stmt = $db->prepare("UPDATE users SET login_time = :login_time WHERE username = :username");
+        $stmt->bindParam(":username", $username);
+
+        $login_time = date('Y-m-d H:i:s',time());
+
+        $stmt->bindParam(":login_time", $login_time);
         $stmt->execute();
 
         echo "success";
@@ -76,7 +84,7 @@ if($results)
         $_SESSION['loggedin'] = false;
 
         $stmt = $db->prepare("UPDATE login_log SET fail = fail + 1 WHERE user = :user");
-        $stmt->bindParam("user", $user_id);
+        $stmt->bindParam(":user", $user_id);
         $stmt->execute();
 
         echo "invalid";

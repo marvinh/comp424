@@ -56,8 +56,8 @@ if($user && isset($_POST['password']) && isset($_POST['repeat']))
         $db = PDOConnection::getInstance()->connection;
     
         $stmt = $db->prepare("UPDATE users SET pass = :pass WHERE id=:id");
-        $stmt->bindParam(":pass", $password);
-        $stmt->bindParam(":id", $userId);
+        $stmt->bindParam(":id", $user['id']);
+        $stmt->bindParam(":pass", $bcryptPassword);
         $stmt->execute();
 
         $db = PDOConnection::getInstance()->connection;

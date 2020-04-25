@@ -33,6 +33,8 @@ if (!isset( $_SESSION['user_id'] ) ) {
     $stmt->execute();
     $user = $stmt->fetch();
 
+    $login_time = $user['login_time'];
+
     $stmt = $db->prepare("SELECT * FROM login_log WHERE user = :user");
     $stmt->bindParam(":user",$_SESSION['user_id']);
     $stmt->execute();
@@ -75,12 +77,22 @@ if (!isset( $_SESSION['user_id'] ) ) {
   </button>
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+            <a class="nav-link" href="secret.php"> Secret </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="admin.php"> Change Password </a>
+        </li>
+    </ul>
+
     <ul class="navbar-nav ml-auto">
       <li class="nav-item">
-        <a class="nav-link" href="logout.php">Logout</a>
+          <a class="nav-link" href="logout.php"> Logout </a>
       </li>
-
     </ul>
+
+    
   </div>
 </nav>
 
@@ -90,6 +102,7 @@ if (!isset( $_SESSION['user_id'] ) ) {
         <p> Total Login Attempts: <?php echo $logins['attempts']; ?> </p>
         <p> Total Successful Logins: <?php echo $logins['success']; ?> </p>
         <p> Total Failed Logins: <?php echo $logins['fail']; ?> </p>
+        <p> Login Time (GMT): <?php echo $login_time; ?> </p>
         <p> <a href="secret.php?download=true"> Download Company Confidential File </a> </p>
         <!-- <embed src="secret/company_confidential_file.txt"> </embed> -->
     </div>

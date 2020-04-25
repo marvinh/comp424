@@ -42,6 +42,8 @@ if($captcha=="")
 
 }
 
+
+
 $username = sanitize($_POST['username']);
 $email = sanitize($_POST['email']);
 $password = sanitize($_POST['password']);
